@@ -1,5 +1,4 @@
- // Simulated user data (replace with actual backend integration)
-        let currentUser = null;
+let currentUser = null;
         const users = [];
         let activities = [];
         let goals = [];
@@ -17,11 +16,15 @@
         const goalsList = document.getElementById('goals-list');
         const goalsListPage = document.getElementById('goals-list-page');
         const profileForm = document.getElementById('profile-form');
+        const contactForm = document.getElementById('contact-form');
 
         // Helper Functions
+        let currentPage = 'dashboard';
         function showPage(pageId) {
             document.querySelectorAll('[id$="-page"]').forEach(page => page.style.display = 'none');
             document.getElementById(pageId).style.display = 'block';
+            currentPage = pageId.replace('-page', '');
+            updateNavigation();
         }
 
         function updateNavigation() {
@@ -80,7 +83,7 @@
                 e.preventDefault();
                 const pageId = e.target.getAttribute('data-page') + '-page';
                 showPage(pageId);
-                updateNavigation();
+                
             });
         });
 
@@ -154,6 +157,19 @@
             alert('Profile updated successfully');
         });
 
+        // Contact Form
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const message = document.getElementById('contact-message').value;
+            
+            // Here you would typically send the form data to a server
+            // For now, we'll just show an alert
+            alert(`Thank you for your message, ${name}! We'll get back to you at ${email} soon.`);
+            contactForm.reset();
+        });
+
         // Dashboard
         function updateDashboard() {
             // Update activity chart
@@ -202,4 +218,4 @@
 
         // Initial setup
         showPage('dashboard-page');
-        updateNavigation();
+        
